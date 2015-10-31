@@ -1,0 +1,11 @@
+# Pacman-Game
+
+### Description
+Pacman is a arcade game in which there is one player i.e, pacman and some ghosts chasing behind it. The goal of pacman is to collect all the coins on the board.
+
+### Rules
+1. The pacman can move in four directions i.e,
+	d - RIGHT
+	a - LEFT
+	w - UP
+	s - DOWN
