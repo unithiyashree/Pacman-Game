@@ -4,6 +4,7 @@ def create_game():
 	# Creating the board.
 	board = [[ '.' for a in range(35)] for b in range(15)]
 	p = randint(1, 13)
+
 	# making walls on the board..!!!
 	for j in range (0, 15):
 		board[j][0] = 'X'
@@ -15,11 +16,14 @@ def create_game():
 		board[j][p] = 'X'
 	for j in range(10, 25):
 		board[p][j] = 'X'
+	
+	# Intializing the variables
 	coin_count = 0
 	ghost1 = 0
 	ghost2 = 0
 	ghost3 = 0 
 	pacman = 0
+	
 	# Filling the coins on the board. 
 	while coin_count != 30:
 		x = randint(1, 14)
@@ -27,6 +31,7 @@ def create_game():
 		if board[x][y] == '.':
 			board[x][y] = 'C'
 			coin_count = coin_count + 1
+	
 	# Placing the ghost on the board		
 	while ghost1 != 1:
 		x = randint(1, 14)
@@ -35,6 +40,7 @@ def create_game():
 			board[x][y] = 'G'
 			ghost1 = ghost1 + 1
 		ghost1_pos = [x, y]
+	
 	# Placing the 2nd ghost on the board		
 	while ghost2 != 1:
 		x = randint(1, 14)
@@ -43,6 +49,7 @@ def create_game():
 			board[x][y] = 'G'
 			ghost2 = ghost2 + 1
 		ghost2_pos = [x, y]
+	
 	# Placing the 3rd ghost on the board		
 	while ghost3 != 1:
 		x = randint(1, 14)
@@ -51,6 +58,7 @@ def create_game():
 			board[x][y] = 'G'
 			ghost3 = ghost3 + 1
 		ghost3_pos = [x, y]
+	
 	# Placing the pacman on the board.
 	while pacman != 1:
 		x = randint(1, 14)
@@ -67,6 +75,7 @@ class person():
 		self.state = True
 
 class pacman(person):
+	
 	def __init__(self, x, y, e, board):
 		person.__init__(self, e)
 		self.x = x
@@ -74,6 +83,8 @@ class pacman(person):
 		self.e = e
 		self.board = board
 		self.state = 0
+	
+	# Checking the empty position for the movement of pacman
 	def checkPlace(self):
 		if  self.e == 'w' and self.board[self.x-1][self.y] == '.':
 				self.board[self.x][self.y] = '.'
@@ -115,6 +126,8 @@ class pacman(person):
 					self.board[self.x][self.y+1] = 'P'
 					pos[1][0] = self.x
 					pos[1][1] = self.y+1
+
+	# Checking empty position for the movement of the Ghost
 	def checkGhost(self):
 		global state1
 		if self.e == 'w' and self.board[self.x-1][self.y] == 'G':
@@ -129,6 +142,8 @@ class pacman(person):
 		if self.e == 'd' and self.board[self.x][self.y+1] == 'G':
 			state1 = 1
 			print state1
+	
+	# Updating the total coins
 	def collectCoins(self):
 		global coins
 		if self.e == 'w'and self.board[self.x-1][self.y] == 'C':
@@ -155,6 +170,8 @@ class pacman(person):
 				coins = coins + 1
 				pos[1][0] = self.x
 				pos[1][1] = self.y+1
+	
+	# Checking for position of the Wall
 	def checkWall(self):
 		global state
 		if self.e == 'w' and self.board[self.x-1][self.y] == 'X':
@@ -174,11 +191,13 @@ class pacman(person):
 			state = 1
 
 class Ghost(person):
+	
 	def __init__(self, x, y, board, c):
 		self.x = x
 		self.y = y
 		self.c = c
 		self.board = board
+	
 	def position(self):
 		place = 1
 		while place != 2:
